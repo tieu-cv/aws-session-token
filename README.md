@@ -106,6 +106,14 @@ Or directly:
 npx ts-node index.ts development
 ```
 
+## Builder
+
+### Basic builder
+
+```bash
+npm run build
+```
+
 ## How it works
 
 1. The tool reads your profile configuration from package.json

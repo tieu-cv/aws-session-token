@@ -126,7 +126,7 @@ export class SessionToken {
         if (!session) {
             throw `Unable to determine aws_session_token`;
         }
-        this.credential = { ...credential, [profileName]: { ...profileObj, aws_session_token: session.aws_session_token } };
+        this.credential = { ...credential, [profileName]: { ...profileObj, ...session } };
         this.logTable('Token renewed successfully', { [profileName]: session });
     }
 
@@ -160,12 +160,12 @@ export class SessionToken {
         }
         const profile = this.profileName in this.profiles ? this.profiles[this.profileName] : undefined;
         if (!profile) {
-            throw `Profile [${this.profileName}] does not exist in ${this.settingFile}`
+            throw `Profile [${this.profileName}] does not exist in ${this.packageFile}`
         }
         const keys: Array<string> = ['aws_access_key_id', 'aws_secret_access_key', 'region', 'serial', 'mfa_secret_key'];
         for (const key of keys) {
             if (!(key in profile)) {
-                throw `[${key}] of profile [${this.profileName}] does not exist in ${this.settingFile}`
+                throw `[${key}] of profile [${this.profileName}] does not exist in ${this.packageFile}`
             }
         }
     }
